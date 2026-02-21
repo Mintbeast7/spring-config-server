@@ -1,13 +1,40 @@
+# ================================
+# CONFIG SERVER CONFIGURATION
+# ================================
+
 server:
-  port: 8877
+  port: 8877   # Port where Config Server will run
+               # All microservices will connect to this port
+               # Example: http://localhost:8877
+
 
 spring:
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/Mintbeast7/Configs.git
+          uri: https://github.com/Mintbeast7/project-configurations.git
+          # GitHub repository where all microservice configuration files are stored
+          # Example files inside repo:
+          # account-service-QA.yml
+          # account-service-dev.yml
+          # product-service.yml
+
           default-label: main
+          # Branch name of GitHub repository
+          # Config Server will pull configuration from this branch
+
           clone-on-start: true
+          # When true:
+          # Config Server clones the Git repo immediately on startup
+          # If false:
+          # Repo is cloned only when first request comes
+          # Recommended: true (fail fast if repo not accessible)
+
           search-paths: Config
- 
+          # Folder inside Git repo where configuration files are stored
+          # Example:
+          # project-configurations/
+          #    └── Config/
+          #         ├── account-service-dev.yml
+          #         └── product-service-dev.yml
